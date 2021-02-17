@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville&family=Sora:wght@700&family=Ubuntu:ital,wght@1,500&display=swap" rel="stylesheet">
+	<script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.5.1.js"></script>
+    <title>Analyze products</title>
+</head>
+<body>
+    <a href="index.html"><i id="homeicon" class="fa fa-home"></i></a>
+    <a href="analyze.html" style="position: absolute; top:20px;left: 35%;font-size: xx-large; font-weight: 700; font-family: 'Ubuntu',sans-serif ; color: rgb(29, 29, 29);">SENTIMENT ANALYSIS</a>
+    <div class="loader" id="loader"></div>
+    <div class="container" id="container">
+        <div id="d1">
+            <br>
+            <h3 style="font-family: 'Sora', sans-serif;">Product List</h3>
+            <form method="POST" action="http://127.0.0.1:5000/" enctype = "multipart/form-data" >
+            <div id="itemRows">
+            Number of Products: &nbsp;&nbsp;<input type="number" name="add_num" size="4" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" onclick="addRow(this.form);" value="OK" /><br><br>
+            </div>
+            <center>
+            <input type="submit" value="Rank Order" style="background-color: rgb(160, 65, 65); color: aliceblue;font-size: larger; font-weight: 600; border-radius: 5px;">
+            </center>
+            </form>
+        </div>
+        <div>
+        <div class="summarizer">
+            <h3 style="padding-top: 8px; padding-left: 10px; font-family: 'Sora', sans-serif;">Go to Summarizer</h3>
+            <p style=" padding-left: 10px;  padding-right: 5px; font-family: 'Sora', sans-serif; text-align: justify;">Summarizer tool consolidates review content to more appealing and abbreviated form</p>
+            <a href="summarizer.html" style="background-color: rgb(160, 65, 65); color: aliceblue;">Click Here --> </a>
+        </div>
+        <br>
+        <div>
+            <h4 style="font-family: 'Sora', sans-serif;">Result</h4>
+            <table id="userTable" style="border-spacing: 5px;">
+                  <tr>
+                    <th>S.no</th>
+                    <th>Name</th>
+                  </tr>
+             </table>
+        </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript">
+    function addRow(frm) {
+        var num=frm.add_num.value;
+        var rowNum;
+        for(rowNum=1;rowNum<=num;rowNum++){
+        var row = '<div id="rowNum'+rowNum+'" class="container2"><div><br>Product Name: <input type="text" name="prod[]" size="7" required></div> <div style="padding-top: 8px;">User Reviews: &nbsp;&nbsp;<input type="file" name="f[]" style="padding-bottom: 4px;" required><br> Critic Reviews:&nbsp; <input type="file" name="cf[]" required></div> <div><br><img src="cross.png" width="25px" style="margin-left:-50px;" type="button" value="Remove" onclick="removeRow('+rowNum+')"></div></div>';
+        jQuery('#itemRows').append(row);
+        }
+    }
+    function removeRow(rnum) {
+        jQuery('#rowNum'+rnum).remove();
+    }
+    $(document).ready(function(){
+    $("form").on("submit", function(e){  
+    e.preventDefault();
+    $.ajax({
+            type: 'POST',
+            url: $(this).attr('action'),
+            enctype: 'multipart/form-data',
+            data: new FormData(this),
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                var len=parseInt(data[0]);
+            for(var i=1; i<=len; i++){
+            var name = data[i];
+            var tr_str = "<tr>" +
+                "<td>" + (i) + "</td>" +
+                "<td>" + name + "</td>" +
+                "</tr>";
+            $("#userTable").append(tr_str);
+            }
+            }
+        }
+    );
+});
+});
+$(document).ajaxStart(function(){
+  $("#loader").show();
+  $("#container").css({"filter": "blur(8px)","-webkit-filter": "blur(8px)"});
+  $(".summarizer").css({"filter": "blur(8px)","-webkit-filter": "blur(8px)"});
+});
+$(document).ajaxComplete(function(){
+  $("#loader").hide();
+  $("#container").css({"filter": "blur(0px)","-webkit-filter": "blur(0px)"});
+  $(".summarizer").css({"filter": "blur(0px)","-webkit-filter": "blur(0px)"});
+});
+</script>
+<style>
+    #homeicon{
+    color:rgba(18, 18, 19, 0.849);
+    font-size:45px; 
+    text-shadow:2px 2px 3px #636262;
+    position: absolute; 
+    top:10px;
+    left: 2.5%;
+    }
+    #homeicon:hover{
+    font-size: 50px;
+    text-shadow:3px 3px 4px #8b8a8a;
+    }
+    body{
+    background-color: rgba(157, 124, 248, 0.74);
+    }
+    .container{
+        margin-top: 70px;
+        margin-left:3%;
+        margin-right: 1%;
+        display: grid;
+        grid-template-columns: 80% 20%;
+    }
+    .container2{
+        display: grid;
+        grid-template-columns: auto auto auto;
+        grid-gap: 10px;
+        padding: 10px;
+    }
+    th, td {
+        padding: 3px 10px;
+        text-align: left;
+    }
+    th{
+        font-size: larger;
+    }
+    td{
+        font-size: large;
+    }
+    .loader {
+        display: none;
+        position: absolute;
+        left: 40%;
+        top: 40%;
+        z-index: 10;
+        border: 16px solid #f3f3f3;
+        border-radius: 50%;
+        border-top: 16px solid #3498db;
+        width: 200px;
+        height: 200px;
+        -webkit-animation: spin 2s linear infinite;
+        animation: spin 2s linear infinite;
+    }
+
+    @-webkit-keyframes spin {
+        0% { -webkit-transform: rotate(0deg); }
+        100% { -webkit-transform: rotate(360deg); }
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+    .summarizer{
+        /*position:absolute;
+        bottom: 1%;
+        right: 5%;*/
+        width: 155%;
+        height: 175px;
+        border: 1px solid black;
+        border-radius: 5px;
+    }
+    .summarizer a{
+        text-align: center;
+        text-decoration: none;
+        border: 1px solid black;
+        border-radius: 3px;
+        background-color: rgba(156, 155, 155, 0.856);
+        color: black;
+        padding: 3px;
+        margin-left: 30%;
+    }
+</style>
+</html>

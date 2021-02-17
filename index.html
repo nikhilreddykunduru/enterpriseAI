@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville&family=Sora:wght@700&family=Ubuntu:ital,wght@1,500&display=swap" rel="stylesheet">
+    <title>Home</title>
+</head>
+<body>
+    <a href="index.html"><i id="homeicon" class="fa fa-home"></i></a>
+    <h1 style="font-family: 'Ubuntu',sans-serif;">ENTERPRISE AI</h1>
+    <img src="tcslogo.png" style="position: absolute; top: 45px; right:4%; width: 10%;">
+    <div class="content">
+        <p>The best analysis report of the broad spectrum of sources in the Internet. You name it, we add it!</p>
+        <p>We analyze customer sentiment and critic reviews to each product using machine learning models</p>
+        <p>We tap into 100,000+ sources in various categories in all major sectors</p>
+        <br>
+        <div class="btns">
+        <a href="chatbot.html" class="btn btn-squared-default">Customer<br> View</a>
+        <a href="analyze.html" class="btn btn-squared-default">Marketing<br> View</a>
+        </div>
+    </div>
+    <div class="auth">
+        <p>Designed by<br>
+        Nikhil Reddy Kunduru<br>
+        B.E, MVSR-OU, Hyderabad.</p>
+    </div>
+    <p id="copyright">Image source: pngtree.com</p>
+</body>
+<style>
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  background-image: url('bgimg.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+h1{
+    text-align: center;
+    margin-top: 45px;
+    font-family:Arial, Helvetica, sans-serif;
+    color: black;
+}
+#homeicon{
+    color:rgba(18, 18, 19, 0.849);
+    font-size:50px; 
+    text-shadow:2px 2px 3px #636262;
+    position: absolute; 
+    top:45px;
+    left: 4%;
+}
+#homeicon:hover{
+    font-size: 55px;
+    text-shadow:3px 3px 4px #8b8a8a;
+}
+.content{
+    margin-top: 60px;
+}
+.content p{
+    text-align: justify;
+    font-size: larger;
+    font-family: 'Sora', sans-serif;
+    font-weight: 650;
+    margin-left: 18%;
+    margin-right: 8%;
+    color: black;
+    -webkit-text-stroke: 0.5px #464545a1;
+}
+.content .btns{
+    margin-left: 33%;
+    margin-right: 10%;
+}
+.btn-squared-default
+{
+        height: 110px !important;
+}
+.btn-squared-default:hover
+{
+    border: 3px solid rgb(26, 25, 25);
+    font-weight: 500;
+}
+.btn{
+    text-decoration: none;
+    font-size: 22px;
+    font-family: 'Sora', sans-serif;
+    color: rgb(10, 10, 10);
+    background-color: #4d4c4c65;
+    font-weight: 600;
+    border: 2px solid rgb(8, 8, 8);
+    padding-top: 17px;
+    margin-left: 3%;
+    margin-right: 3%;
+    width: 25%;
+}
+.auth p{
+    text-align: justify;
+    font-size: 15px;
+    font-weight: 550;
+    position: absolute;
+    bottom: 0;
+    right: 3%;
+    padding: 9px;
+    border: 2px solid;
+    border-radius: 5px;
+}
+#copyright{
+    position: absolute;
+    bottom: 0;
+    left: 2%;
+    font-size: x-small;
+}
+</style>
+</html>

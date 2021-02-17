@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.5.1.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville&family=Sora:wght@700&family=Ubuntu:ital,wght@1,500&display=swap" rel="stylesheet">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <title>Summarization</title>
+</head>
+<body>
+    <a href="index.html" ><i id="homeicon" class="fa fa-home"></i></a><br>
+    <a href="summarizer.html" style="position: absolute; top:20px;left: 45%;font-size: xx-large; font-weight: 700; font-family: 'Ubuntu',sans-serif ; color: rgb(29, 29, 29);">SUMMARIZER</a><br>
+    <div class="container">
+        <div>
+            <p style="font-family: 'Sora', sans-serif;">Summarizer tool consolidates review content to more appealing and abbreviated form</p>
+            <form method="POST" action="http://127.0.0.1:5000/" enctype = "multipart/form-data">
+                <label style="font-family: 'Sora', sans-serif;"><b>Text:</b></label><br><br>
+                <textarea rows="5" cols="75%" id="text" name="text"></textarea>
+                <br><hr>
+                <label style="font-family: 'Sora', sans-serif;"><b>Video:</b></label><br><br>
+                <input type="file" accept="video/mp4,video/x-m4v,video/*" id="vid" name="vid">
+                <br>
+                <center> 
+                <input type = "submit" name="submit" value="Submit" style="background-color: rgb(160, 65, 65); color: aliceblue; border-radius: 3px; padding: 2px;">
+                </center>
+            </form>
+        </div>
+        <hr>
+        <div>
+            <h3 style="font-family: 'Sora', sans-serif;"><u>Summary:</u></h3><br>
+            <p id="summ"></p>
+        </div>
+    </div>
+</body>
+<script>
+    $(document).ready(function(){
+    $("form").on("submit", function(e){  
+    e.preventDefault();
+    $.ajax({
+            type: 'POST',
+            url: $(this).attr('action'),
+            enctype: 'multipart/form-data',
+            data: new FormData(this),
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                console.log(data);
+            $("#summ").append(data);
+            }
+        }
+    );
+});
+});
+</script>
+<style>
+    .container{
+        margin-top: 50px;
+    }
+    .container div{
+        margin: 1% 15%;
+    }
+    body{
+    background-color: rgba(157, 124, 248, 0.74);
+    }
+    #homeicon{
+    color:rgba(18, 18, 19, 0.849);
+    font-size:45px; 
+    text-shadow:2px 2px 3px #636262;
+    position: absolute; 
+    top:10px;
+    left: 2.5%;
+    }
+    #homeicon:hover{
+    font-size: 50px;
+    text-shadow:3px 3px 4px #8b8a8a;
+    }
+</style>
+</html>
